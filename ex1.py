@@ -4,7 +4,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+# dist = distance3D(pixels[0], pixels[1])
 def distance3D(a, b):
     a = np.array([float(a[0]), float(a[1]), float(a[2])])
     b = np.array([float(b[0]), float(b[1]), float(b[2])])
@@ -25,13 +25,12 @@ def main():
         centroids = [line.rstrip().split(" ") for line in centroids]
     file.close()
 
-    a = np.array([float(centroids[0][0]), float(centroids[0][1]), float(centroids[0][2])])
-    b = np.array([float(centroids[1][0]), float(centroids[1][1]), float(centroids[1][2])])
-   dist = distance3D(centroids[0], centroids[1])
+    # dist = distance3D(pixels[0], pixels[1])
 
+    print(dist)
     isChanged = True
-    #while(isChanged):
-      #  for pixel in pixels:
+    while(isChanged):
+        for pixel in pixels:
 
 
 
