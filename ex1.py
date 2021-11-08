@@ -26,12 +26,31 @@ def main():
     file.close()
 
     # dist = distance3D(pixels[0], pixels[1])
+    # each cluster contains the points of the centroids
+    clusters = []
+    for centroid in centroids:
+        cluster = []
+        clusters.append(cluster)
 
-    print(dist)
+    #print(dist)
     isChanged = True
-    while(isChanged):
+    iterations = 0
+    while(isChanged and iterations < 20):
+       # iterations += 1
+        iterations += 99                                                                             # TODO delete
         for pixel in pixels:
+            min = distance3D(centroids[0], pixel)
+            closestCentroidIndex = 0
+            x = 0
+            for centroid in centroids:
+                dist = distance3D(centroid, pixel)
+                if (dist < min):
+                    min = dist
+                    closestCentroidIndex = x
+                x += 1
+            clusters[closestCentroidIndex].append(pixel)
 
+    print("ssddd")
 
 
 
