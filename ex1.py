@@ -38,6 +38,7 @@ def main():
     while(isChanged and iterations < 20):
        # iterations += 1
         iterations += 99                                                                             # TODO delete
+       # divide the pixels to clusters
         for pixel in pixels:
             min = distance3D(centroids[0], pixel)
             closestCentroidIndex = 0
@@ -49,8 +50,10 @@ def main():
                     closestCentroidIndex = x
                 x += 1
             clusters[closestCentroidIndex].append(pixel)
+        #
 
-    print("ssddd")
+
+
 
 
 
