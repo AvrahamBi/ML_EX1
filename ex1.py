@@ -50,7 +50,7 @@ def main():
                     closestCentroidIndex = x
                 x += 1
             clusters[closestCentroidIndex].append(pixel)
-        #
+        # compute new location for each centroid
 
 
 
