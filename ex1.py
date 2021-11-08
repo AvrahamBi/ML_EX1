@@ -36,8 +36,8 @@ def main():
     isChanged = True
     iterations = 0
     while(isChanged and iterations < 20):
-       # iterations += 1
-        iterations += 99                                                                             # TODO delete
+        isChanged = False
+        iterations += 1                                                                           # TODO delete
        # divide the pixels to clusters
         for pixel in pixels:
             min = distance3D(centroids[0], pixel)
@@ -50,7 +50,38 @@ def main():
                     closestCentroidIndex = x
                 x += 1
             clusters[closestCentroidIndex].append(pixel)
+
         # compute new location for each centroid
+        for i in range(len(clusters)):
+            if (len(clusters[i]) == 0):
+                continue
+            newValues = []
+            for j in range(len(pixels[0])):
+                average = 0
+                for pixel in clusters[i]:
+                  average += float(pixel[j])
+                #if (len(clusters[i]) != 0):
+                average /= len(clusters[i])
+                newValues.append(round(average, 4))
+                #
+            for k in range(len(newValues)):
+                currentCentroid = centroids[i]
+                if (currentCentroid[k] != newValues[k]):
+                    isChanged = True
+                    centroids[i] = newValues
+        print(centroids)
+
+
+
+    print("\nCheck")
+
+
+
+
+
+
+
+
 
 
 
