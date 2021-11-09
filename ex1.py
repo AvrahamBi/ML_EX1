@@ -25,7 +25,6 @@ def main():
         centroids = [line.rstrip().split(" ") for line in centroids]
     file.close()
 
-    # dist = distance3D(pixels[0], pixels[1])
     # each cluster contains the points of the centroids
     clusters = []
     for centroid in centroids:
@@ -36,6 +35,10 @@ def main():
     isChanged = True
     iterations = 0
     while(isChanged and iterations < 20):
+        # nullify the clusters
+        for cluster in clusters:
+            #cluster = []
+            cluster.clear()
         isChanged = False
        # divide the pixels to clusters
         for pixel in pixels:
@@ -68,7 +71,6 @@ def main():
                 if (currentCentroid[k] != newValues[k]):
                     isChanged = True
                     centroids[i] = newValues
-
         # create the string to write to the output file
         outputLine = "[iter " + str(iterations) + "]:"
         for centroid in centroids:
@@ -80,8 +82,6 @@ def main():
             outputLine += v
         outputLine = outputLine[:-1]
         outputLine += "\n"
-        #print(outputLine)
-
         out = open(out_fname, "a")
         out.write(outputLine)
         out.close()
