@@ -18,7 +18,7 @@ def main():
     pixels = orig_pixels.astype(float) / 255.
     # Reshape the image(128x128x3) into an Nx3 matrix where N = number of pixels.
     pixels = pixels.reshape(-1, 3)
-    open(out_fname, 'w').close() # todo delete maybe
+    open(out_fname, 'w').close() # todo maybe delete
     # open centroids file
     with open(centroids_fname) as file:
         centroids = file.readlines()
@@ -31,10 +31,11 @@ def main():
         cluster = []
         clusters.append(cluster)
 
-    #print(dist)
     isChanged = True
     iterations = 0
+    lossPerIteration = []
     while(isChanged and iterations < 20):
+        loss = 0 # TODO
         # nullify the clusters
         for cluster in clusters:
             #cluster = []
@@ -52,7 +53,12 @@ def main():
                     closestCentroidIndex = x
                 x += 1
             clusters[closestCentroidIndex].append(pixel)
-
+            loss += (min * min)
+        loss /= len(pixels)
+        loss = round(loss, 7)
+        lossPerIteration.append(loss)
+        print(loss)
+        #
         # compute new location for each centroid
         for i in range(len(clusters)):
             if (len(clusters[i]) == 0):
@@ -86,28 +92,14 @@ def main():
         out.write(outputLine)
         out.close()
         iterations += 1
-
-
-    #print("\nCheck")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    numbers = []
+    for i in range(iterations):
+        numbers.append(i)
+    plt.plot(numbers, lossPerIteration)
+    plt.xlabel("iterations")
+    plt.ylabel("Avg Loss")
+    plt.title("K = " + str(len(centroids)))
+    plt.show()
 
 
 
