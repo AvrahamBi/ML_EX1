@@ -18,7 +18,7 @@ def main():
     pixels = orig_pixels.astype(float) / 255.
     # Reshape the image(128x128x3) into an Nx3 matrix where N = number of pixels.
     pixels = pixels.reshape(-1, 3)
-
+    open(out_fname, 'w').close() # todo delete maybe
     # open centroids file
     with open(centroids_fname) as file:
         centroids = file.readlines()
@@ -37,7 +37,6 @@ def main():
     iterations = 0
     while(isChanged and iterations < 20):
         isChanged = False
-        iterations += 1                                                                           # TODO delete
        # divide the pixels to clusters
         for pixel in pixels:
             min = distance3D(centroids[0], pixel)
@@ -69,11 +68,27 @@ def main():
                 if (currentCentroid[k] != newValues[k]):
                     isChanged = True
                     centroids[i] = newValues
-        print(centroids)
+
+        # create the string to write to the output file
+        outputLine = "[iter " + str(iterations) + "]:"
+        for centroid in centroids:
+            v = "["
+            for value in centroid:
+                v += str(value) + " "
+            v = v[:-1]
+            v += "],"
+            outputLine += v
+        outputLine = outputLine[:-1]
+        outputLine += "\n"
+        #print(outputLine)
+
+        out = open(out_fname, "a")
+        out.write(outputLine)
+        out.close()
+        iterations += 1
 
 
-
-    print("\nCheck")
+    #print("\nCheck")
 
 
 
